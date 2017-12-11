@@ -17,11 +17,25 @@ def add(request):
         hora_fin = request.POST.get('hora_fin')
         procedimento = request.POST.get('procedimento')
 
+        pprint(paciente)
+
         agendamento = Agendamento(paciente=paciente, data=data, hora_init=hora_init, procedimento=procedimento,
                                   hora_fin=hora_fin)
         agendamento.save()
 
-        return HttpResponse('Salvo')
+        return HttpResponse('funcionou')
+
+    else:
+        return HttpResponse('Falhou')
+
+
+def read(request, paciente=None):
+
+    #Preferi fazer a pesquisa pelo nome do paciente, sei que poderia fazer por ID
+    #No entanto seria o ID do agendamento e não do paciente em si
+
+    if (request.method=='GET'):
+        return Agendamento.objects.all()
 
     else:
         return HttpResponse('Falhou')
