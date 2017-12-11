@@ -1,6 +1,5 @@
-from django.shortcuts import render, redirect, get_object_or_404
+
 from .models import Agendamento
-from django.contrib import messages
 from pprint import  pprint
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -29,13 +28,42 @@ def add(request):
         return HttpResponse('Falhou')
 
 
-def read(request, paciente=None):
+@csrf_exempt
+def read(request, id=None):
 
-    #Preferi fazer a pesquisa pelo nome do paciente, sei que poderia fazer por ID
-    #No entanto seria o ID do agendamento e não do paciente em si
-
+    #Pra mostrar todos os usuarios
     if (request.method=='GET'):
-        return Agendamento.objects.all()
+
+        todos = Agendamento.objects.all()
+
+        #O resultado devera aparecer no terminal de onde o servidor Django esta rodando
+        return HttpResponse(pprint(todos))
+
+    #Pra mostrar usuario especifico
+    elif(request.method=='POST'):
+
+        #faaa uma insercao manual de id
+        id = request.POST.get('id')
+        resultado = Agendamento.objects.get(id=id)
+        return HttpResponse('Seu usuario e: '+str(resultado))
 
     else:
         return HttpResponse('Falhou')
+
+@csrf_exempt
+def delete(request, id=None):
+
+    if (request.method=='DELETE'):
+
+        id = request.POST.get('id')
+        paciente_deletado = Agendamento.objects.get(id=id)
+        paciente_deletado.delete()
+
+        return HttpResponse('Deletado!')
+    else:
+        return HttpResponsesCode()
+
+
+
+class HttpResponsesCode(HttpResponse):
+    NotFound = 404
