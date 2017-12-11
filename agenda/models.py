@@ -13,8 +13,8 @@ class Agendamento(models.Model):
     hora_init = models.TimeField(max_length=100)
     hora_fin = models.TimeField(max_length=100)
     procedimento = models.TextField(max_length=400)
-    data_criacao = models.DateTimeField(default=datetime.now, blank=True)
-    data_alteracao = models.DateTimeField(default=datetime.now, blank=True)
+    data_criacao = models.DateTimeField(default=datetime.now)
+    data_alteracao = models.DateTimeField(default=datetime.now)
 
 
     def __str__(self):

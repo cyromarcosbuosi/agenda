@@ -1,28 +1,32 @@
+import json
 
+from django.shortcuts import render
 from .models import Agendamento
-from pprint import  pprint
+from pprint import pprint
 from django.http import HttpResponse
+from datetime import datetime
 from django.views.decorators.csrf import csrf_exempt
+
+
 # Create your views here.
 
 @csrf_exempt
 def add(request):
-
     if (request.method == 'POST'):
 
-        paciente = request.POST.get('paciente')
-        data = request.POST.get('data')
-        hora_init = request.POST.get('hora_init')
-        hora_fin = request.POST.get('hora_fin')
-        procedimento = request.POST.get('procedimento')
+        jload = json.loads(request.body.decode("utf-8"))
 
-        pprint(paciente)
+        paciente = jload[""u'paciente'""]
+        data = jload[""u'data'""]
+        hora_init = jload[""u'hora_init'""]
+        hora_fin = jload[""u'hora_fin'""]
+        procedimento = jload[""u'procedimento'""]
 
         agendamento = Agendamento(paciente=paciente, data=data, hora_init=hora_init, procedimento=procedimento,
                                   hora_fin=hora_fin)
         agendamento.save()
 
-        return HttpResponse('funcionou')
+        return HttpResponse("Funcionou!")
 
     else:
         return HttpResponse('Falhou')
@@ -30,40 +34,62 @@ def add(request):
 
 @csrf_exempt
 def read(request, id=None):
-
-    #Pra mostrar todos os usuarios
-    if (request.method=='GET'):
+    # Pra mostrar todos os usuarios
+    if (request.method == 'GET'):
 
         todos = Agendamento.objects.all()
 
-        #O resultado devera aparecer no terminal de onde o servidor Django esta rodando
+        # O resultado devera aparecer no terminal de onde o servidor Django esta rodando
         return HttpResponse(pprint(todos))
 
-    #Pra mostrar usuario especifico
-    elif(request.method=='POST'):
-
-        #faaa uma insercao manual de id
-        id = request.POST.get('id')
+    # Pra mostrar usuario especifico
+    elif (request.method == 'POST'):
+        jload = json.loads(request.body.decode("utf-8"))
+        # faca uma insercao manual de id
+        id = jload[""u'id'""]
         resultado = Agendamento.objects.get(id=id)
-        return HttpResponse('Seu usuario e: '+str(resultado))
+        return HttpResponse('Seu usuario e: ' + str(resultado))
 
     else:
         return HttpResponse('Falhou')
 
+
 @csrf_exempt
 def delete(request, id=None):
+    if (request.method == 'DELETE'):
 
-    if (request.method=='DELETE'):
+        jload = json.loads(request.body.decode("utf-8"))
+        id = jload[""u'id'""]
 
-        id = request.POST.get('id')
-        paciente_deletado = Agendamento.objects.get(id=id)
-        paciente_deletado.delete()
-
-        return HttpResponse('Deletado!')
+        if (Agendamento.objects.filter(id=id).exists()):
+            resultado = Agendamento.objects.get(id=id)
+            resultado.delete()
+            return HttpResponse('Funcionou!')
+        else:
+            return HttpResponse('Ele ja nao existia antes')
     else:
-        return HttpResponsesCode()
+        return HttpResponse('falhou')
 
 
+@csrf_exempt
+def alter(request, id=None):
+    if (request.method == 'PUT'):
+        jload = json.loads(request.body.decode("utf-8"))
 
-class HttpResponsesCode(HttpResponse):
-    NotFound = 404
+        paciente = jload[""u'paciente'""]
+        data = jload[""u'data'""]
+        hora_init = jload[""u'hora_init'""]
+        hora_fin = jload[""u'hora_fin'""]
+        procedimento = jload[""u'procedimento'""]
+        id = jload[""u'id'""]
+
+        if (Agendamento.objects.filter(id=id).exists()):
+
+            Agendamento.objects.filter(id=id).update(paciente=paciente, data=data, hora_fin=hora_fin,
+                                                     hora_init=hora_init,
+                                                     procedimento=procedimento, data_alteracao=datetime.now)
+            return HttpResponse('Funcionou!')
+        else:
+            return HttpResponse('Usuario nao encontrado')
+    else:
+        return HttpResponse('falhou')
