@@ -87,7 +87,8 @@ def alter(request, id=None):
 
             Agendamento.objects.filter(id=id).update(paciente=paciente, data=data, hora_fin=hora_fin,
                                                      hora_init=hora_init,
-                                                     procedimento=procedimento, data_alteracao=datetime.now)
+                                                     procedimento=procedimento)
+
             return HttpResponse('Funcionou!')
         else:
             return HttpResponse('Usuario nao encontrado')
