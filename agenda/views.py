@@ -1,5 +1,5 @@
 import json
-
+import requests
 from django.shortcuts import render
 from .models import Agendamento
 from pprint import pprint
@@ -47,7 +47,7 @@ def read(request, id=None):
         jload = json.loads(request.body.decode("utf-8"))
         # faca uma insercao manual de id
         id = jload[""u'id'""]
-        resultado = Agendamento.objects.get(id=id)
+        resultado = Agendamento.objects.filter(id=id,).values()
         return HttpResponse('Seu usuario e: ' + str(resultado))
 
     else:
@@ -94,3 +94,13 @@ def alter(request, id=None):
             return HttpResponse('Usuario nao encontrado')
     else:
         return HttpResponse('falhou')
+
+
+def test():
+    data = datetime.now
+    dados = {'paciente': 'Teste', 'data': data, 'hora_init': data, 'procedimento': 'Procedimento teste',
+             'hora_fin': 'data'}
+    dados = json.dumps(dados)
+    r = requests.post('localhost/agenda/add', dados)
+
+    return
