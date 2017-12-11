@@ -1,12 +1,8 @@
 import json
-import requests
-from django.shortcuts import render
 from .models import Agendamento
-from pprint import pprint
 from django.http import HttpResponse
-from datetime import datetime
 from django.views.decorators.csrf import csrf_exempt
-
+from datetime import datetime
 
 # Create your views here.
 
@@ -40,7 +36,7 @@ def read(request, id=None):
         todos = Agendamento.objects.all()
 
         # O resultado devera aparecer no terminal de onde o servidor Django esta rodando
-        return HttpResponse(pprint(todos))
+        return HttpResponse(todos)
 
     # Pra mostrar usuario especifico
     elif (request.method == 'POST'):
@@ -87,7 +83,7 @@ def alter(request, id=None):
 
             Agendamento.objects.filter(id=id).update(paciente=paciente, data=data, hora_fin=hora_fin,
                                                      hora_init=hora_init,
-                                                     procedimento=procedimento)
+                                                     procedimento=procedimento, data_alteracao=datetime.now())
 
             return HttpResponse('Funcionou!')
         else:
@@ -96,11 +92,3 @@ def alter(request, id=None):
         return HttpResponse('falhou')
 
 
-def test():
-    data = datetime.now
-    dados = {'paciente': 'Teste', 'data': data, 'hora_init': data, 'procedimento': 'Procedimento teste',
-             'hora_fin': 'data'}
-    dados = json.dumps(dados)
-    r = requests.post('localhost/agenda/add', dados)
-
-    return

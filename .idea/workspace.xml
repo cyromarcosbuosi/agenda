@@ -3,9 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="108da4d6-bb4a-4e2a-9597-429ca3c39ec3" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db.sqlite3" afterPath="$PROJECT_DIR$/db.sqlite3" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/agenda/models.py" afterPath="$PROJECT_DIR$/agenda/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/agenda/tests.py" afterPath="$PROJECT_DIR$/agenda/tests.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/agenda/urls.py" afterPath="$PROJECT_DIR$/agenda/urls.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/agenda/views.py" afterPath="$PROJECT_DIR$/agenda/views.py" />
     </list>
@@ -25,11 +22,11 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/agenda/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="294">
-              <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+            <state relative-caret-position="219">
+              <caret line="17" column="18" lean-forward="false" selection-start-line="17" selection-start-column="4" selection-end-line="17" selection-end-column="18" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -52,8 +49,8 @@
       <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/agenda/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="10" column="39" lean-forward="false" selection-start-line="10" selection-start-column="39" selection-end-line="10" selection-end-column="39" />
+            <state relative-caret-position="135">
+              <caret line="9" column="49" lean-forward="false" selection-start-line="9" selection-start-column="49" selection-end-line="9" selection-end-column="49" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -61,11 +58,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/agenda/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="47" column="40" lean-forward="true" selection-start-line="47" selection-start-column="40" selection-end-line="47" selection-end-column="40" />
+            <state relative-caret-position="294">
+              <caret line="85" column="108" lean-forward="false" selection-start-line="85" selection-start-column="108" selection-end-line="85" selection-end-column="108" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -129,6 +126,8 @@
       <find>read</find>
       <find>id</find>
       <find>models</find>
+      <find>requests</find>
+      <find>datetime</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -142,10 +141,10 @@
         <option value="$PROJECT_DIR$/agenda/admin.py" />
         <option value="$APPLICATION_CONFIG_DIR$/consoles/ide/ide-scripting.groovy" />
         <option value="$PROJECT_DIR$/MyClinic/settings.py" />
-        <option value="$PROJECT_DIR$/agenda/urls.py" />
         <option value="$PROJECT_DIR$/agenda/tests.py" />
-        <option value="$PROJECT_DIR$/agenda/views.py" />
         <option value="$PROJECT_DIR$/agenda/models.py" />
+        <option value="$PROJECT_DIR$/agenda/urls.py" />
+        <option value="$PROJECT_DIR$/agenda/views.py" />
       </list>
     </option>
   </component>
@@ -1019,36 +1018,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/MyClinic/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-          <folding>
-            <element signature="e#642#683#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/agenda/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="10" column="39" lean-forward="false" selection-start-line="10" selection-start-column="39" selection-end-line="10" selection-end-column="39" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/agenda/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="47" column="40" lean-forward="true" selection-start-line="47" selection-start-column="40" selection-end-line="47" selection-end-column="40" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/agenda/tests.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
@@ -1079,12 +1048,42 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/MyClinic/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+          <folding>
+            <element signature="e#642#683#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/agenda/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+        <state relative-caret-position="219">
+          <caret line="17" column="18" lean-forward="false" selection-start-line="17" selection-start-column="4" selection-end-line="17" selection-end-column="18" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agenda/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="49" lean-forward="false" selection-start-line="9" selection-start-column="49" selection-end-line="9" selection-end-column="49" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agenda/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="294">
+          <caret line="85" column="108" lean-forward="false" selection-start-line="85" selection-start-column="108" selection-end-line="85" selection-end-column="108" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
           </folding>
         </state>
       </provider>

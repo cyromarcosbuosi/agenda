@@ -8,5 +8,4 @@ urlpatterns = [
     url(r'^search', views.read, name='read'),
     url(r'^alter', views.alter, name='alter'),
     url(r'^delete', views.delete, name='delete'),
-    url(r'test', views.test, name='test')
 ]
