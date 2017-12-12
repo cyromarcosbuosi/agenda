@@ -4,16 +4,16 @@ from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from .models import Agendamento
 from rest_framework.response import Response
+from .Validator import dataValidator, horaFinValidator, horaInitValidator, pacienteValidator, procedimentoValidator
+from . import JsonResponses
+from rest_framework import status
+
 
 # Create your views here.
 
-jsonResponse = {}
-jsonResponse['resultado'] = 'Sucesso'
-jsonResponse['mensagem'] = 'Requisicao feita com sucesso!'
 
-jsonBadResponse = {}
-jsonBadResponse['resultado'] = 'Erro'
-jsonBadResponse['mensagem'] = 'Requisicao nao executada'
+
+
 
 
 
@@ -24,20 +24,36 @@ def add(request):
         jload = json.loads(request.body.decode("utf-8"))
 
         paciente = jload[""u'paciente'""]
+        if pacienteValidator(paciente) == False:
+            return HttpResponse((JsonResponses.notSuccessful()))
+
         data = jload[""u'data'""]
+        if dataValidator(data) == False:
+            return HttpResponse(json.dumps(JsonResponses.notSuccessful()))
+
         hora_init = jload[""u'hora_init'""]
+        if horaInitValidator(hora_init) == False:
+            return HttpResponse(json.dumps(JsonResponses.notSuccessful()))
+
         hora_fin = jload[""u'hora_fin'""]
+        if horaFinValidator(hora_fin, hora_init) == False:
+            return HttpResponse(json.dumps(JsonResponses.notSuccessful()))
+
         procedimento = jload[""u'procedimento'""]
+        if procedimentoValidator(procedimento) == True:
+            return HttpResponse(json.dumps(JsonResponses.notSuccessful()))
 
         if (Response.status_code == 200):
             agendamento = Agendamento(paciente=paciente, data=data, hora_init=hora_init, procedimento=procedimento,
                                       hora_fin=hora_fin)
             agendamento.save()
 
-            return HttpResponse(json.dumps(jsonResponse))
+            return HttpResponse(JsonResponses.successful(), status=status.HTTP_201_CREATED)
+        elif(Response.status_code==500):
+            return HttpResponse(JsonResponses.InternalError())
 
         else:
-            return HttpResponse(json.dumps(jsonBadResponse))
+            return HttpResponse(JsonResponses.BadRequest())
 
 
 @csrf_exempt
@@ -47,7 +63,6 @@ def read(request, id=None):
 
         todos = Agendamento.objects.all()
 
-
         return HttpResponse(todos)
 
     # Pra mostrar usuario especifico
@@ -56,10 +71,17 @@ def read(request, id=None):
         # faca uma insercao manual de id
         id = jload[""u'id'""]
         resultado = Agendamento.objects.filter(id=id, ).values()
-        return HttpResponse('Seu usuario e: ' + str(resultado))
+
+        if resultado.exists():
+            return HttpResponse('Seu usuario e: ' + str(resultado))
+
+        else:
+            return  HttpResponse(JsonResponses.NotFound())
+
 
     else:
-        return HttpResponse(json.dumps(jsonBadResponse))
+        status = Response.status_code
+        return HttpResponse(JsonResponses.NotFound())
 
 
 @csrf_exempt
@@ -72,11 +94,11 @@ def delete(request, id=None):
         if (Agendamento.objects.filter(id=id).exists()):
             resultado = Agendamento.objects.get(id=id)
             resultado.delete()
-            return HttpResponse('Funcionou!')
+            return HttpResponse(JsonResponses.successful())
         else:
-            return HttpResponse('Ele ja nao existia antes')
+            return HttpResponse(JsonResponses.NotFound())
     else:
-        return HttpResponse('falhou')
+        return HttpResponse(JsonResponses.BadRequest())
 
 
 @csrf_exempt
@@ -97,8 +119,8 @@ def alter(request, id=None):
                                                      hora_init=hora_init,
                                                      procedimento=procedimento, data_alteracao=datetime.now())
 
-            return HttpResponse('Funcionou!')
+            return HttpResponse(JsonResponses.successful())
         else:
-            return HttpResponse('Usuario nao encontrado')
+            return HttpResponse(JsonResponses.NotFound())
     else:
-        return HttpResponse('falhou')
+        return HttpResponse(JsonResponses.BadRequest())
