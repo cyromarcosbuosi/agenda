@@ -67,7 +67,9 @@ DELETE
   
 LISTA DE DEPENDÊNCIAS DE PACOTES:
 
-from django.http import HttpResponse
-from datetime import datetime
-from django.views.decorators.csrf import csrf_exempt
-import json
+djangorestframework
+
+
+Consideraçes:
+
+Usei o Postman por que é uma ferramenta simples e muito completa, realizei o teste de multiplas requests por segundo atráves dele, também realizei os testes singulares para validação de funções com ele. 
