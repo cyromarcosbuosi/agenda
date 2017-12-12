@@ -7,7 +7,7 @@ import requests
 # from urllib.request import , urlopen
 import json
 
-
+#Ignora isso, só não excluo porque quero aprender a usar um dia
 
 def test():
     data = datetime.now

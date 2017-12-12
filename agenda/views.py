@@ -1,10 +1,21 @@
 import json
-from .models import Agendamento
+from datetime import datetime
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
-from datetime import datetime
+from .models import Agendamento
+from rest_framework.response import Response
 
 # Create your views here.
+
+jsonResponse = {}
+jsonResponse['resultado'] = 'Sucesso'
+jsonResponse['mensagem'] = 'Requisicao feita com sucesso!'
+
+jsonBadResponse = {}
+jsonBadResponse['resultado'] = 'Erro'
+jsonBadResponse['mensagem'] = 'Requisicao nao executada'
+
+
 
 @csrf_exempt
 def add(request):
@@ -18,14 +29,15 @@ def add(request):
         hora_fin = jload[""u'hora_fin'""]
         procedimento = jload[""u'procedimento'""]
 
-        agendamento = Agendamento(paciente=paciente, data=data, hora_init=hora_init, procedimento=procedimento,
-                                  hora_fin=hora_fin)
-        agendamento.save()
+        if (Response.status_code == 200):
+            agendamento = Agendamento(paciente=paciente, data=data, hora_init=hora_init, procedimento=procedimento,
+                                      hora_fin=hora_fin)
+            agendamento.save()
 
-        return HttpResponse("Funcionou!")
+            return HttpResponse(json.dumps(jsonResponse))
 
-    else:
-        return HttpResponse('Falhou')
+        else:
+            return HttpResponse(json.dumps(jsonBadResponse))
 
 
 @csrf_exempt
@@ -35,7 +47,7 @@ def read(request, id=None):
 
         todos = Agendamento.objects.all()
 
-        # O resultado devera aparecer no terminal de onde o servidor Django esta rodando
+
         return HttpResponse(todos)
 
     # Pra mostrar usuario especifico
@@ -43,11 +55,11 @@ def read(request, id=None):
         jload = json.loads(request.body.decode("utf-8"))
         # faca uma insercao manual de id
         id = jload[""u'id'""]
-        resultado = Agendamento.objects.filter(id=id,).values()
+        resultado = Agendamento.objects.filter(id=id, ).values()
         return HttpResponse('Seu usuario e: ' + str(resultado))
 
     else:
-        return HttpResponse('Falhou')
+        return HttpResponse(json.dumps(jsonBadResponse))
 
 
 @csrf_exempt
@@ -90,5 +102,3 @@ def alter(request, id=None):
             return HttpResponse('Usuario nao encontrado')
     else:
         return HttpResponse('falhou')
-
-
